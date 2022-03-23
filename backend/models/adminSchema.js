@@ -14,6 +14,12 @@ const adminSchema = mongoose.Schema({
     required: true,
     type: "string",
   },
+  role: {
+    type: "string",
+  },
+  jwtPayload: {
+    type: "string",
+  },
 });
 
 const Admin = mongoose.model("admins", adminSchema);

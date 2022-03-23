@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const Admin = require("../models/adminSchema");
+// ! this route is secured... only logged in admins can access this route
 router.post("/admin-reg", async (req, res) => {
   const { email, username, password } = req.body;
   try {
@@ -18,6 +19,7 @@ router.post("/admin-reg", async (req, res) => {
       email: email,
       username: username,
       password: hashedPass,
+      role: "admin",
     });
     if (newAdmin) res.json({ message: "admin is created successfully" });
   } catch (err) {
@@ -26,3 +28,11 @@ router.post("/admin-reg", async (req, res) => {
 });
 
 module.exports = router;
+
+let a = [
+  {
+    name: "shreyas",
+    items: ["", ""],
+    waitedBy: "waiter-1",
+  },
+];
