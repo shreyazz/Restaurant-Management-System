@@ -13,12 +13,13 @@ router.post("/admin-login", async (req, res) => {
     }
     const admin = await Admin.findOne({ email: email });
     if (!admin) {
-      return res.status(422).json({ error: "admin is not registered" });
+      return res.status(404).json({ error: "admin is not registered" });
     }
-
+    if (admin.email === "admin@gmail.com")
+      console.log("he/she is the primary admin...");
     const isPasswordMatching = await bcrypt.compare(password, admin.password);
     if (!isPasswordMatching) {
-      return res.json({ error: "please ented valid credentials" });
+      return res.status(401).json({ error: "please ented valid credentials" });
     }
     const jwtPayload = jwt.sign(
       {

@@ -41,11 +41,13 @@ const AdminLogin = () => {
       }),
     });
     const data = await res.json();
-    console.log(data);
-
-    if (data.status === 400 || !data) {
-      window.alert("Invalid Credentials");
-    } else {
+    if (res.status === 422 || !data) {
+      window.alert("Please fill out all the fields below");
+    } else if (res.status === 404) {
+      window.alert("Admin is not register");
+    } else if (res.status === 401) {
+      window.alert("Please enter valid credentials");
+    } else if (res.status === 200) {
       window.alert("Login Successful");
       setUser(data);
     }

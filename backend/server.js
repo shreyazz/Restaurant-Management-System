@@ -9,9 +9,13 @@ connectToDB();
 
 app.use(cors());
 app.use(express.json());
+// ! admin routes
 app.use("/login", require("./routes/adminLogin"));
 app.use("/register", require("./routes/adminRegister"));
-
+// ! chef routes
+app.use("/login", require("./routes/chefLogin"));
+app.use("/register", require("./routes/chefRegister"));
+// ! waiter routes
 app.listen(PORT, () =>
   console.log(`Server Started on http://localhost:${PORT}`)
 );
