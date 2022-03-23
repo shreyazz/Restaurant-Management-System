@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+
+import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +12,7 @@ const AdminLogin = () => {
     newAdminPassword: "",
     newAdminUsername: "",
   });
+  const [role, setRole] = useState("");
   const handleChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -49,8 +51,11 @@ const AdminLogin = () => {
       window.alert("Please enter valid credentials");
     } else if (res.status === 200) {
       window.alert("Login Successful");
+
       setUser(data);
     }
+
+    setRole(data.role);
   };
 
   const addAdmin = async () => {
@@ -102,7 +107,7 @@ const AdminLogin = () => {
         </Button>
       </Form>
       <hr />
-      {addAdminMenu && (
+      {role === "primary-admin" && addAdminMenu && (
         <Container>
           <Form>
             <Row>
@@ -138,14 +143,17 @@ const AdminLogin = () => {
 
       <Container>
         <div className="d-flex justify-content-between">
-          <Button
-            variant="success mt-3"
-            onClick={() => {
-              setAddAdminMenu(!addAdminMenu);
-            }}
-          >
-            Add Admin
-          </Button>
+          {role === "primary-admin" && (
+            <Button
+              variant="success mt-3"
+              onClick={() => {
+                setAddAdminMenu(!addAdminMenu);
+              }}
+            >
+              Add Admin
+            </Button>
+          )}
+
           <Button variant="success mt-3 mr-2">Add Chef</Button>
           <Button variant="success mt-3">Add Waiter</Button>
         </div>

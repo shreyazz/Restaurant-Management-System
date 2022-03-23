@@ -35,7 +35,7 @@ router.post("/admin-login", async (req, res) => {
       { email: admin.email },
       { $set: { jwtPayload: jwtPayload } }
     );
-    res.json({ jwt: jwtPayload, username: admin.username });
+    res.json({ jwt: jwtPayload, username: admin.username, role: admin.role });
   } catch (err) {
     res.status(500).json({ error: "Some error occured 🔴" });
   }
