@@ -28,11 +28,3 @@ router.post("/admin-reg", async (req, res) => {
 });
 
 module.exports = router;
-
-let a = [
-  {
-    name: "shreyas",
-    items: ["", ""],
-    waitedBy: "waiter-1",
-  },
-];
