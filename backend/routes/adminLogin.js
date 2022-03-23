@@ -24,6 +24,7 @@ router.post("/admin-login", async (req, res) => {
       {
         email: admin.email,
         username: admin.username,
+        role: admin.role,
       },
       secretCode
     );
