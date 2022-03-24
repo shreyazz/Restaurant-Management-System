@@ -153,12 +153,13 @@ const AdminLogin = () => {
               Add Admin
             </Button>
           )}
-          {role === "admin" && (
-            <>
-              <Button variant="success mt-3 mr-2">Add Chef</Button>
-              <Button variant="success mt-3">Add Waiter</Button>
-            </>
-          )}
+          {role === "admin" ||
+            (role === "primary-admin" && (
+              <>
+                <Button variant="success mt-3 mr-2">Add Chef</Button>
+                <Button variant="success mt-3">Add Waiter</Button>
+              </>
+            ))}
         </div>
       </Container>
     </Container>
