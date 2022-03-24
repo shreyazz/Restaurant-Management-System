@@ -169,4 +169,3 @@ export default AdminLogin;
 // * admin -> email, role(auto), username, password
 // TODO: Add Dishes (only admin)
 // yo sumee
-// truck you
