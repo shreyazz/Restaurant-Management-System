@@ -29,12 +29,16 @@ router.post("/admin-login", async (req, res) => {
       },
       secretCode
     );
-
+    res.cookie("jwt", jwtPayload, {
+      httpOnly: true,
+    });
+    console.log();
     // admin.jwtPayload = jwtPayload;
     await Admin.findOneAndUpdate(
       { email: admin.email },
       { $set: { jwtPayload: jwtPayload } }
     );
+
     res.json({ jwt: jwtPayload, username: admin.username, role: admin.role });
   } catch (err) {
     res.status(500).json({ error: "Some error occured 🔴" });
