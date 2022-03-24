@@ -167,7 +167,7 @@ const AdminLogin = () => {
 
 export default AdminLogin;
 
-// TODO: chef -> name, role(auto), emp-id, password
 // TODO: waiter -> name, role(auto), emp-id, password
 // * admin -> email, role(auto), username, password
-// TODO: Add Dishes (only admin)
+// * chef -> name, role(auto), emp-id, password
+// TODO: food item -> name, price, category, description?
