@@ -153,9 +153,12 @@ const AdminLogin = () => {
               Add Admin
             </Button>
           )}
-
-          <Button variant="success mt-3 mr-2">Add Chef</Button>
-          <Button variant="success mt-3">Add Waiter</Button>
+          {role === "admin" && (
+            <>
+              <Button variant="success mt-3 mr-2">Add Chef</Button>
+              <Button variant="success mt-3">Add Waiter</Button>
+            </>
+          )}
         </div>
       </Container>
     </Container>
@@ -168,4 +171,3 @@ export default AdminLogin;
 // TODO: waiter -> name, role(auto), emp-id, password
 // * admin -> email, role(auto), username, password
 // TODO: Add Dishes (only admin)
-// yo sumee
