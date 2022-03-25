@@ -29,3 +29,8 @@ router.post("/chef-reg", async (req, res) => {
 });
 
 module.exports = router;
+
+// Auth => Bearer jwt_token
+// Bearer, jwt_token
+// jwt_token = role => primary admin
+//

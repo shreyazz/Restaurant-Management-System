@@ -15,12 +15,12 @@ router.post("/admin-login", async (req, res) => {
     if (!admin) {
       return res.status(404).json({ error: "admin is not registered" });
     }
-    if (admin.email === "admin@gmail.com")
-      console.log("he/she is the primary admin...");
     const isPasswordMatching = await bcrypt.compare(password, admin.password);
     if (!isPasswordMatching) {
       return res.status(401).json({ error: "please ented valid credentials" });
     }
+
+    //  ------
     const jwtPayload = jwt.sign(
       {
         email: admin.email,
@@ -29,10 +29,11 @@ router.post("/admin-login", async (req, res) => {
       },
       secretCode
     );
+
     res.cookie("jwt", jwtPayload, {
       httpOnly: true,
     });
-    console.log();
+
     // admin.jwtPayload = jwtPayload;
     await Admin.findOneAndUpdate(
       { email: admin.email },

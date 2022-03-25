@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
   const [addAdminMenu, setAddAdminMenu] = useState(false);
   const [newAdmin, setNewAdmin] = useState({
     newAdminEmail: "",
@@ -29,11 +28,12 @@ const AdminLogin = () => {
     }
   };
 
+  // ! handles login
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const res = await fetch("http://localhost:5000/login/admin-login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -51,30 +51,35 @@ const AdminLogin = () => {
       window.alert("Please enter valid credentials");
     } else if (res.status === 200) {
       window.alert("Login Successful");
-
+      localStorage.setItem("jwt", data.jwt);
       setUser(data);
     }
-
     setRole(data.role);
   };
 
   const addAdmin = async () => {
     const res = await fetch("http://localhost:5000/register/admin-reg", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.jwt}`,
+      },
+      
       body: JSON.stringify({
         email: newAdmin.newAdminEmail,
         username: newAdmin.newAdminUsername,
         password: newAdmin.newAdminPassword,
       }),
     });
-
     const data = await res.json();
-    if (data.status === 400 || !data) {
-      window.alert("Some Error occurred");
-    } else {
-      window.alert("Admin Added Successful");
-    }
+    console.log(data);
+    // if (data.status === 400 || !data) {
+    //   window.alert("Some Error occurred");
+    // } else {
+    //   window.alert("Admin Added Successful");
+    // }
+    // const cookie_jwt = Cookies.get("jwt");
+    // console.log(Cookies.get());
   };
   return (
     <Container>
@@ -107,59 +112,51 @@ const AdminLogin = () => {
         </Button>
       </Form>
       <hr />
-      {role === "primary-admin" && addAdminMenu && (
-        <Container>
-          <Form>
-            <Row>
-              <Col>
-                <Form.Control
-                  placeholder="Email"
-                  onChange={handleChange}
-                  name="newAdminEmail"
-                />
-              </Col>
-              <Col>
-                <Form.Control
-                  placeholder="Username"
-                  onChange={handleChange}
-                  name="newAdminUsername"
-                />
-              </Col>
-              <Col>
-                <Form.Control
-                  placeholder="Password"
-                  onChange={handleChange}
-                  name="newAdminPassword"
-                />
-              </Col>
-            </Row>
-            <Button variant="primary mt-3" onClick={addAdmin}>
-              Add
-            </Button>
-          </Form>
-          <hr />
-        </Container>
-      )}
-
+      <Container>
+        <Form>
+          <Row>
+            <Col>
+              <Form.Control
+                placeholder="Email"
+                onChange={handleChange}
+                name="newAdminEmail"
+              />
+            </Col>
+            <Col>
+              <Form.Control
+                placeholder="Username"
+                onChange={handleChange}
+                name="newAdminUsername"
+              />
+            </Col>
+            <Col>
+              <Form.Control
+                placeholder="Password"
+                onChange={handleChange}
+                name="newAdminPassword"
+              />
+            </Col>
+          </Row>
+          <Button variant="primary mt-3" onClick={addAdmin}>
+            Add
+          </Button>
+        </Form>
+        <hr />
+      </Container>
       <Container>
         <div className="d-flex justify-content-between">
-          {role === "primary-admin" && (
-            <Button
-              variant="success mt-3"
-              onClick={() => {
-                setAddAdminMenu(!addAdminMenu);
-              }}
-            >
-              Add Admin
-            </Button>
-          )}
-          {role === "admin" ||
-            (role === "primary-admin" && (
-              <>
-                <Button variant="success mt-3 mr-2">Add Chef</Button>
-                <Button variant="success mt-3">Add Waiter</Button>
-              </>
-            ))}
+          <Button
+            variant="success mt-3"
+            onClick={() => {
+              setAddAdminMenu(!addAdminMenu);
+            }}
+          >
+            Add Admin
+          </Button>
+          <>
+            <Button variant="success mt-3 mr-2">Add Chef</Button>
+            <Button variant="success mt-3">Add Waiter</Button>
+          </>
         </div>
       </Container>
     </Container>
