@@ -35,6 +35,9 @@ app.use("/register", require("./routes/adminRegister"));
 app.use("/login", require("./routes/chefLogin"));
 app.use("/register", require("./routes/chefRegister"));
 // ! waiter routes
+app.use("/register", require("./routes/waiterRegister"));
+app.use("/login", require("./routes/waiterLogin"));
+
 app.listen(PORT, () =>
   console.log(`Server Started on http://localhost:${PORT}`)
 );
