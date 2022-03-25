@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import AdminLogin from "./pages/AdminLogin";
 const App = () => {
+  // const user = localStorage.getItem("jwt");
   return (
     <>
       <Routes>
-        <Route path="/" element={<>Home Page</>} />
-        <Route path="/adminLogin" element={<AdminLogin />} />
-        <Route path="*" element={<>404 Page Not Found</>} />
+       
       </Routes>
     </>
   );

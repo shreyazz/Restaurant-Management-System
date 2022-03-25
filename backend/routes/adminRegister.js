@@ -3,9 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const Admin = require("../models/adminSchema");
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
 
-const secretCode = process.env.SECRET_CODE.toString();
 const authPrimaryAdmin = require("../middleware/authPrimaryAdmin");
 // ! this route is secured... only primary admin can access this route
 

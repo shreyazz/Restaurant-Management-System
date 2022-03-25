@@ -17,12 +17,8 @@ function authPrimaryAdmin(req, res, next) {
     const tokenDecoded = jwt.verify(bearerToken, secretCode);
     if (tokenDecoded.role === "primary-admin") {
       next();
-      // res.json({
-      // message:
-      // "This user is the primary-admin. He/She can add another admin 🟢",
-      // });
     } else {
-      res.json({
+      res.status(403).json({
         error:
           "This user is not the primary-admin. He/She can not add another admin 🔴",
       });
