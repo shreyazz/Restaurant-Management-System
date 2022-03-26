@@ -22,11 +22,8 @@ function authPrimaryAdmin(req, res, next) {
         error:
           "This user is not the primary-admin. He/She can not add another admin 🔴",
       });
-      // res.status(403).json({ error: "Error in authPrimaryAdmin Middleware" });
     }
     req.token = bearerToken;
-
-    // Next middleware
   } else {
     res.status(403).json({ error: "Error in authPrimaryAdmin Middleware" });
   }

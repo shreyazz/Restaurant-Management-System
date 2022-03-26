@@ -7,7 +7,7 @@ Router.post("/waiter-login", async (req, res) => {
   const { emp_id, password } = req.body;
   try {
     if (!emp_id || !password) {
-      return res.status(422).json({ error: "please fill all fields 🔴" });
+      res.status(422).json({ error: "please fill all fields 🔴" });
     }
     const waiter = await Waiter.findOne({ emp_id });
     if (!waiter) res.status(422).json({ error: "waiter is not registered 🔴" });

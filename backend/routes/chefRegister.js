@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const Chef = require("../models/chefSchema");
-
-router.post("/chef-reg", async (req, res) => {
+const authAdmin = require("../middleware/authAdmin");
+router.post("/chef-reg", authAdmin, async (req, res) => {
   const { name, emp_id, password } = req.body;
 
   try {

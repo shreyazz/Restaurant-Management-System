@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const Waiter = require("../models/waiterSchema");
-
-router.post("/waiter-reg", async (req, res) => {
+const authAdmin = require("../middleware/authAdmin");
+router.post("/waiter-reg", authAdmin, async (req, res) => {
   const { name, emp_id, password } = req.body;
 
   try {
