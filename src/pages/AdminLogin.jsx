@@ -1,7 +1,9 @@
 import React from "react";
 
 const AdminLogin = () => {
-  return <div>Admin Login Component</div>;
+  return (<>
+  
+  </>);
 };
 
 export default AdminLogin;

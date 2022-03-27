@@ -20,7 +20,7 @@ router.post("/waiter-reg", authAdmin, async (req, res) => {
       name: name,
       emp_id: emp_id,
       password: hashedPass,
-      role: "chef",
+      role: "waiter",
     });
     if (newWaiter) res.json({ message: "waiter is created successfully" });
   } catch (err) {

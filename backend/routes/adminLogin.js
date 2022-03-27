@@ -11,10 +11,12 @@ router.post("/admin-login", async (req, res) => {
     if (!email || !password) {
       return res.status(422).json({ error: "please fill all fields" });
     }
+
     const admin = await Admin.findOne({ email: email });
     if (!admin) {
       return res.status(404).json({ error: "admin is not registered" });
     }
+    
     const isPasswordMatching = await bcrypt.compare(password, admin.password);
     if (!isPasswordMatching) {
       return res.status(401).json({ error: "please ented valid credentials" });
@@ -23,7 +25,6 @@ router.post("/admin-login", async (req, res) => {
     //  ------
     const jwtPayload = jwt.sign(
       {
-        email: admin.email,
         username: admin.username,
         role: admin.role,
       },
@@ -40,7 +41,7 @@ router.post("/admin-login", async (req, res) => {
       { $set: { jwtPayload: jwtPayload } }
     );
 
-    res.json({ jwt: jwtPayload, username: admin.username, role: admin.role });
+    res.json({ jwt: jwtPayload, role: admin.role });
   } catch (err) {
     res.status(500).json({ error: "Some error occured 🔴" });
   }
